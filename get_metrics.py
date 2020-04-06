@@ -33,7 +33,7 @@ def get_metrics(date):
         return "Incorrect data format, should be YYYY-MM-DD"
     ########################################################################
     # Total number of items sold on that day
-        # Vatiable to return --> "date_quantity"
+        # Corresponding variable to return --> "date_quantity"
     ########################################################################
 
     # Get DF of orders made on date
@@ -55,17 +55,17 @@ def get_metrics(date):
 
     ########################################################################
     # Total number of customers that made an order that day
-        # Variable to return --> "customers_on_date"
+        # Corresponding variable to return --> "customers_on_date"
     ########################################################################
 
     customers_on_date = len(set(date_orders_df["customer_id"].tolist()))
 
     ########################################################################
-    # the total amount of the total amount of discount given that day
-        # Variable to return --> "discount_on_date"
+    # The total amount of discount given that day
+        # Corresponding variable to return --> "discount_on_date"
 
-    # the average discount rate applied to the items sold that day (zero excluded)
-        # Variable to return --> "average_discount_on_date"
+    # The average discount rate applied to the items sold that day (zero excluded)
+        # Corresponding variable to return --> "average_discount_on_date"
     ########################################################################
 
     discount_on_date = 0
@@ -81,8 +81,8 @@ def get_metrics(date):
     average_discount_on_date = average(discount_rates_on_date)
 
     ########################################################################
-    # the average order total for that day (taken of total_amount)
-        # Variable to return --> "average_order_amount_on_date"
+    # The average order total for that day (taken of total_amount)
+        # Corresponding variable to return --> "average_order_amount_on_date"
     ########################################################################
 
     order_amounts = []
@@ -92,26 +92,24 @@ def get_metrics(date):
     average_order_amount_on_date = average(order_amounts)
 
     ########################################################################
-    # the total amount of commissions generated that day (taken of total_amount)
-        # Variable to return --> "total_commissions"
+    # The total amount of commissions generated that day (taken of total_amount)
+        # Corresponding variable to return --> "total_commissions"
 
-    # the average amount of commissions per order for that day
-        # Variable to return --> "average_commission"
+    # The average amount of commissions per order for that day
+        # Corresponding variable to return --> "average_commission"
 
-    # the total amount of commissions earned per promotion that day
-        # Variable to return --> "commissions_per_promotion"
+    # The total amount of commissions earned per promotion that day
+        # Corresponding variable to return --> "commissions_per_promotion"
     ########################################################################
 
-    # Get DF's of commission rates and vendors on date
-    # AND product promotions on date
+    # Get DF's of commission rates and vendors on date AND product promotions on date
     date_commission_rate_df = commissions_df[commissions_df["date"] == date]
     date_product_promotions_df = product_promotions_df[product_promotions_df["date"] == date]
 
     # Get a list of products on promotion that day
     product_promotion_on_date = date_product_promotions_df["product_id"].tolist()
 
-    # Create dictionary to hold the information on promotions and how much
-    # commission they generated
+    # Create dictionary to hold the information on promotions and how much commission they generated
     promotions_count = len(promotions_df["id"].tolist())
     promotions = {}
 
@@ -151,8 +149,7 @@ def get_metrics(date):
                 # pass as key, value pairs into promotions dictionary
                 promotions[promotion_id].append(promotion_commission)
 
-    # Create dict for commissions paid out per promotion with description as key,
-    # excluding promotions that did not generate orders on date
+    # Create dict for commissions paid out per promotion with description as key, excluding promotions that did not generate orders on date
     promotion_descriptions = promotions_df["description"].tolist()
     commissions_per_promotion = {}
     for key, value in promotions.items():
@@ -185,7 +182,6 @@ def get_metrics(date):
 
     try:
         return send_file('results_{}.csv'.format(date), as_attachment=True)
-        # return send_from_directory(path, new_image_name, as_attachment=True)
     except FileNotFoundError:
         abort(404)
 
