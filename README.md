@@ -42,3 +42,5 @@ Given the time pressure on this project (spend 2-3 hours coding and return withi
 The biggest and most obvious is that (pretty much) all calculations and functionality happens in one function, potentially causing problems where a bug in a single line may cause a crash or more faulty/incorrect values than if a different approach was taken.
 
 A more sensible approach would be to use classes, starting with dataframes and data needed for each metric in the top class, branching out into sub-classes for metrics requiring additional data and then bringing it all together with a final result class that inherits from all of the others, having the resulting metrics as instance attributes.
+
+Thanks for reading this till the end and I hope to get a chance to hear your opinion!
